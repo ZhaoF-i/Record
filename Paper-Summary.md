@@ -22,8 +22,8 @@
 ##  Speech Enhancement
 
 -  A Convolutional Recurrent Neural Network for Real-Time Speech Enhancement，网络结构，2022/1/14
-  - 动机：实现低延时或零延时的语音增强应用于现实应用中，如助听器、可植入耳蜗
-  - 方法：提出了因果卷积encoder、decoder和LSTM组成的CRN结构
+  	- 动机：实现低延时或零延时的语音增强应用于现实应用中，如助听器、可植入耳蜗
+ 	- 方法：提出了因果卷积encoder、decoder和LSTM组成的CRN结构
 - A Deep Learning-based Kalman Filter for Speech Enhancement，传统方法+神经网络，2022/1/14
 	- 动机：现有的卡尔曼滤波器(KF)在真实噪声条件下对噪声方差和线性预测系数(LPCs)的估计较差。导致增强效果差
 	
