@@ -1,4 +1,6 @@
-# Paper Summary
+# [Paper Summary](https://github.com/FeiF-i/Record/blob/main/Paper-Summary.md)
+
+
 
 | 题目 | 分类 | 时间 |
 | :--- | ---- | ---- |
@@ -10,7 +12,7 @@
 
 ##  Speech Enhancement
 
-- 题目
+-  A Convolutional Recurrent Neural Network for Real-Time Speech Enhancement，网络结构，2022/1/14
   - 动机：
   - 方法：
 - 题目
