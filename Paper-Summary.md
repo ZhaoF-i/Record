@@ -32,8 +32,12 @@
 	  ![](D:\tools\typora\picture\image-20220114160310054.png)
 
 -  A Maximum Likelihood Approach to SNR-Progressive Learning Using Generalized Gaussian Distribution for LSTM-Based Speech Enhancement，loss，2022/1/14
-	- 动机：
-	- 方法：
+
+	- 动机：本文认为之前提出的MMSE-PL-LSTM的MSE导致了预测误差的不均匀分布和广泛的动态范围，
+
+	- 方法：提出使用概率论中的广义高斯分布和极大似然法来建立误差  ML-PL-LSTM
+
+		
 
 ## Speech Separation
 
