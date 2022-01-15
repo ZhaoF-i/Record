@@ -45,7 +45,7 @@
 
   * 方法：将TasNet中的LSTM换为TCN作为分离器，用depthwise separable convolution代替普通卷积来减少参数量
 
-  ![image-20220115165641939](D:\tools\typora\picture\TasNet.png)
+  ![](D:\tools\typora\picture\TasNet.png)
 - 题目
 	- 动机
 	- 方法
