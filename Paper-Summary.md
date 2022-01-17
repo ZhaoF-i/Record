@@ -59,8 +59,7 @@
   - 动机：一、时频表示进行分离存在缺点：1）相位和幅度谱信息解耦，2）时频表示的次优性，3）计算幅度谱的长延时；二、TasNet在分离任务中的缺点：1）小的卷积核回增加encoder的输出，使LSTM的训练难以管理，2）deep LSTM计算量大，3）由于LSTM的长期依赖性，导致不一样的分离精度：三、受TCN成功所激励
 
   * 方法：将TasNet中的LSTM换为TCN作为分离器，用depthwise separable convolution代替普通卷积来减少参数量
-
-  ![](D:\tools\typora\picture\TasNet.png)
+ 	 ![](D:\tools\typora\picture\TasNet.png)
 - 题目
 	- 动机
 	- 方法
