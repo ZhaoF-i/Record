@@ -67,7 +67,7 @@
 - SELF-ATTENTIVE VAD: CONTEXT-AWARE DETECTION OF VOICE FROM NOISE，ICASSP，，2022/1/17
 	- 动机：由于注意力网络高度依赖于编解码器框架，很少有人能成功地应用它。这通常使得构建的系统对递归神经网络有高度的依赖，考虑到声学框架的尺度和特性，递归神经网络成本高昂，有时上下文较不敏感。为此用注意力机制实现VAD。
 	
-	* 方法：multi-resolution cochleagram (MRCG)特征做Xm，Vxm = {Xm-u, ...，Xm，...，Xm+u}做输入，预测Vym = {Ym-u, ...，Ym，...，Ym+u}；embedding layer为 sinusoidal positional encoding（正弦位置编码），Boosted classifer: y = (Ym-u+ ...+Ym+...+Ym+u)/(2u+1)。
+	* 方法：multi-resolution cochleagram (MRCG)特征做Xm，Vxm = {Xm-u, ...，Xm，...，Xm+u}做输入，预测Vym = {Ym-u, ...，Ym，...，Ym+u}；embedding layer为 sinusoidal positional encoding（正弦位置编码），Boosted classifer: y = (Ym-u+...+Ym+...+Ym+u)/(2u+1)。
 	
 		![](D:\tools\typora\picture\self-attention VAD)
 - 题目
