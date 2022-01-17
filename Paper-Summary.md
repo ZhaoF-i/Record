@@ -50,7 +50,6 @@
 
 	- 动机：比赛的动机就是为了拿第一
 	- 方法：主要由两个管道组成，即一个两阶段网络和一个后处理模块。提出了第一个管道来解耦关于幅度谱和相位优化问题，即在第一阶段只预测幅度谱，并在第二阶段进一步细化预测实虚部。第二个管道旨在进一步抑制剩余的非自然扭曲噪声，这被证明可以充分提高主观质量。
-
 	![](D:\tools\typora\picture\image-20220117165253062.png)
 
 ## Speech Separation
@@ -59,7 +58,8 @@
   - 动机：一、时频表示进行分离存在缺点：1）相位和幅度谱信息解耦，2）时频表示的次优性，3）计算幅度谱的长延时；二、TasNet在分离任务中的缺点：1）小的卷积核回增加encoder的输出，使LSTM的训练难以管理，2）deep LSTM计算量大，3）由于LSTM的长期依赖性，导致不一样的分离精度：三、受TCN成功所激励
 
   * 方法：将TasNet中的LSTM换为TCN作为分离器，用depthwise separable convolution代替普通卷积来减少参数量
- 	 ![](D:\tools\typora\picture\TasNet.png)
+
+  ![](D:\tools\typora\picture\TasNet.png)
 - 题目
 	- 动机
 	- 方法
@@ -78,7 +78,8 @@
 	- 动机：由于注意力网络高度依赖于编解码器框架，很少有人能成功地应用它。这通常使得构建的系统对递归神经网络有高度的依赖，考虑到声学框架的尺度和特性，递归神经网络成本高昂，有时上下文较不敏感。为此用注意力机制实现VAD。
 	
 	* 方法：multi-resolution cochleagram (MRCG)特征做Xm，Vxm = {Xm-u, ...，Xm，...，Xm+u}做输入，预测Vym = {Ym-u, ...，Ym，...，Ym+u}；embedding layer为 sinusoidal positional encoding（正弦位置编码），Boosted classifer: y = (Ym-u+...+Ym+...+Ym+u)/(2u+1)。
-	![](D:\tools\typora\picture\self-attention VAD)
+	
+		![](D:\tools\typora\picture\self-attention VAD)
 - 题目
 	- 动机
 	- 方法
