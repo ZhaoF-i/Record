@@ -71,7 +71,7 @@
 
 	- 方法：LSTM层，密集连接式渐进学习。
 
-		<img src="/picture/image-20220118184426340.png" alt="image-20220118184426340" style="zoom:67%;" /><img src="picture/image-20220118184531980.png" alt="image-20220118184531980" style="zoom: 67%;" />
+		<img src="/picture/image-20220118184426340.png" alt="image-20220118184426340" style="zoom:33%;" /><img src="picture/image-20220118184531980.png" alt="image-20220118184531980" style="zoom: 33%;" />
 
 	
 
