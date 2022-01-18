@@ -83,7 +83,7 @@
 	
 	* 方法：multi-resolution cochleagram (MRCG)特征做Xm，Vxm = {Xm-u, ...，Xm，...，Xm+u}做输入，预测Vym = {Ym-u, ...，Ym，...，Ym+u}；embedding layer为 sinusoidal positional encoding（正弦位置编码），Boosted classifer: y = (Ym-u+...+Ym+...+Ym+u)/(2u+1)。
 	
-		![](/picture/self-attention VAD.png)
+		![image-20220118153002707](picture/image-20220118153002707.png)
 - 题目
 	- 动机
 	- 方法
