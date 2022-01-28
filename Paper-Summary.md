@@ -1,3 +1,5 @@
+
+
 # [Paper Summary](https://github.com/FeiF-i/Record)
 
 | 题目 | 会议/期刊 | 分类 | 时间 |
@@ -82,7 +84,18 @@
   - 动机：从时域和频域中提取的特征可能彼此互补
   - 方法：融合时域、频域进行推理，并实现直接的时域语音增强，同时使用Charbonnier loss function，它具有L2 loss的平滑且可微行还具有L1 loss对异常值的鲁棒性。
 
-  
+- Incorporating Embedding Vectors from a Human Mean-Opinion Score Prediction Model for Monaural Speech Enhancement，Interspeech2021，网络结构，2022/1/27
+
+	- 动机：客观指标做网络的约束取得一定的成功，但这并不是最优的，因为客观指标和人类的听觉没有很强的相关性。
+	- 方法：使用mos评分作为约束来实现语音增强。![image-20220127160314441](picture/image-20220127160314441.png)
+	
+-  Learning Complex Spectral Mapping With Gated Convolutional Recurrent Networks for Monaural Speech Enhancement，Transaction2020，网络结构，2022/1/28
+
+	- 动机：相位对语音感知质量很重要。然而，由于它缺乏谱结构，很难通过监督学习直接估计相位谱。复数谱映射的目的是从噪声语音中估计干净语音的实虚谱图，同时增强语音的幅度和相位响应。受多任务学习的启发，本文提出了一种用于复数谱映射的门控卷积递归网络(GCRN)，它相当于一个单通道语音增强的因果系统。
+
+	- 方法：以CRN为基础，将卷积和反卷积换为门控卷积和门控反卷积，将LSTM换为Group LSTM，一个decoder换为两个decoder，一个预测实部一个预测虚部。
+
+		<img src="picture/image-20220128172655638.png" alt="image-20220128172655638" style="zoom: 67%;"/> <img src="picture/image-20220128173041481.png" alt="image-20220128173041481" style="zoom: 67%;" />
 
 
 ## Speech Separation
@@ -100,6 +113,11 @@
 	- 方法：提出了一种基于transformer的双路径系统，通过集成transform layer进行全局建模。该文章对DPRNN做出两点改进：1）用transformer来代替RNN，2）在第一个DP块之后加一个一维卷积，在最后一个DP块之前加一个一维转置卷积，首先，它可以有效地降低计算成本。其次，卷积核使局部信息更好地呈现在一个局部窗口的单帧中，这可能有利于全局信息的交互。
 	
 		![image-20220124173033367](picture/image-20220124173033367.png)
+	
+-  JOINT PHONEME ALIGNMENT AND TEXT-INFORMED SPEECH SEPARATION ON HIGHLY CORRUPTED SPEECH，ICASSP2020，网络结构，2022/1/27
+
+	- 动机：利用文本信息可以提高语音分离的质量。然而，这通常需要在音素水平上的文本到语音的对齐。
+	- 方法：提出使用递归神经网络和注意机制联合进行基于文本信息的语音-音乐分离和音素对齐。使用Dynamic Time Warping (DTW)进行序列匹配。<img src="picture/image-20220127161826391.png" alt="image-20220127161826391" style="zoom:67%;" />
 
 
 
@@ -108,8 +126,21 @@
 - SELF-ATTENTIVE VAD: CONTEXT-AWARE DETECTION OF VOICE FROM NOISE，ICASSP，网络结构，2022/1/17
 	- 动机：由于注意力网络高度依赖于编解码器框架，很少有人能成功地应用它。这通常使得构建的系统对递归神经网络有高度的依赖，考虑到声学框架的尺度和特性，递归神经网络成本高昂，有时上下文较不敏感。为此用注意力机制实现VAD。
 	
-	* 方法：multi-resolution cochleagram (MRCG)特征做Xm，Vxm = {Xm-u, ...，Xm，...，Xm+u}做输入，预测Vym = {Ym-u, ...，Ym，...，Ym+u}；embedding layer为 sinusoidal positional encoding（正弦位置编码），Boosted classifer: y = (Ym-u+...+Ym+...+Ym+u)/(2u+1)。
-	
+	* 方法：multi-resolution cochleagram (MRCG)特征做Xm，
+		$$
+		Vmx = \{Xm-u, ...,Xm,...,Xm+u\}
+		$$
+		
+		$$
+		Vym = \{Ym-u,...,Ym,...,Ym+u\}
+		$$
+		
+		$$
+		Y = \frac {Ym-u+...+Ym+...+Ym+u}{2u-1}
+		$$
+		
+		Vxm 做输入，预测Vym ；embedding layer为 sinusoidal positional encoding（正弦位置编码），Boosted classifer: y 。
+		
 		![image-20220118153002707](picture/image-20220118153002707.png)
 - 题目
 	- 动机
