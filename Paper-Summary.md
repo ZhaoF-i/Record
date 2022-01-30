@@ -105,7 +105,7 @@
 -  MetricGAN: Generative Adversarial Networks based Black-box Metric Scores Optimization for Speech Enhancement，网络结构+loss，ICML2019，2022/1/29
 
 	- 动机：生成对抗性网络(GAN)中的对抗性损失并不是用来直接优化目标任务的评估度量的，因此，可能并不总是指导GAN中的生成器生成具有改进的度量分数的数据。L1，L2 loss不能反应人类听觉感知。为了克服这个问题，我们提出了一种新的MetricGAN方法，目的是针对一个或多个评估指标来优化生成器。
-	- 方法：![image-20220129172128942](https://cdn.jsdelivr.net/gh/GithubFeiF-i/Record/picture/image-20220129172128942.png)
+	- 方法：![image-20220129172128942](picture/image-20220129172128942.png)
 
 -  MetricGAN+: An Improved Version of MetricGAN for Speech Enhancement，Interspeech2021，loss，2022/1/29
 
