@@ -118,6 +118,43 @@
 
 	- 动机：将专家知识驱动和改善过拟合问题集成到基于统计信号处理的网络设计仍然是一个悬而未决的问题。虽然架构设计有效建模不同的语音和噪声的时频依赖性，总是缺乏一个明确的标准模型设计，这使得很难解释和优化中间表示，也使性能高度依赖训练数据的多样性。
 	- 方法：该方法首先从语音演变模型中得到预测，然后通过线性加权对短期瞬时观测进行积分，通过比较语音预测残差与环境噪声水平来计算权值。设计了一个端到端网络，将KF中的语音线性预测模型转换为非线性模型，并压缩所有其他传统的线性滤波操作。![image-20220130171124607](picture/image-20220130171124607.png)
+	
+- Single-channel speech enhancement using learnable loss mixup，Interspeech2021，loss，2022/1/30
+
+	- 动机：基于监督学习的语音增强通常通过解决一个经验风险最小化(ERM)问题来训练模型。然而，这种方法的一个主要缺点是只在训练样本上学习网络行为。这种限制导致了模型在训练集之外的效果不佳。一个简单而常见的补救方法是扩展训练集，但在语音应用中获取和标记它是昂贵和费力的。另一种常见的方法是数据增强，然而，它依赖于领域，因此需要专家知识。提高泛化性，网络在看不见的噪声环境中产生稳健预测的能力，因此仍然是语音增强的一个主要挑战。
+
+	- 方法：本文提出可学习的损失混合(LLM)，来改进基于深度学习的语音增强模型的泛化性。在损失混合（LM）训练中，按照公式1进行数据增强，并用公式2作为loss函数，本文使用可学习参数代替λ，公式3，4，5。
+		$$
+		\overline x = \lambda x_j + (1-\lambda)x_k   \tag{1}\label{}
+		$$
+
+		$$
+		L_{LM}=\lambda l(f(\overline x),s_j)+(1-\lambda)l(f(\overline x), s_k) \tag{2}\label{}
+		$$
+
+		$$
+		L_{LLM} =\phi(\lambda)l(f(\overline x),s_j)+(1-\phi(\lambda))l(f(\overline x),s_k) \tag{3}\label{}
+		$$
+
+		$$
+		\phi(\lambda)= \frac {\rho(\lambda)}{\rho(\lambda) + \rho(1-\lambda)}\tag{4}\label{}
+		$$
+
+		$$
+		\rho(\lambda) = \lambda^{C\sigma(MLP(embed(\overline x)))}\tag{5}\label{}
+		$$
+
+		
+
+-  TEACHER-STUDENT LEARNING FOR LOW-LATENCY ONLINE SPEECH ENHANCEMENT USING WAVE-U-NET，ICASSP2021，网络结构，2022/1/30
+
+	- 动机：一般的幅度谱预测方法存在两个缺点：1）没有考虑相位，相位被证实是对语音增强很重要。2）窗口长度会限制最小延迟。
+
+	- 方法：用**WAVE-U-NET**做师生学习来实现实时语音增强。
+
+		![image-20220130192230780](picture/image-20220130192230780.png)
+
+
 
 
 ## Speech Separation
@@ -140,6 +177,25 @@
 
 	- 动机：利用文本信息可以提高语音分离的质量。然而，这通常需要在音素水平上的文本到语音的对齐。
 	- 方法：提出使用递归神经网络和注意机制联合进行基于文本信息的语音-音乐分离和音素对齐。使用Dynamic Time Warping (DTW)进行序列匹配。<img src="picture/image-20220127161826391.png" alt="image-20220127161826391" style="zoom:67%;" />
+	
+-  TRANSMASK: A COMPACT AND FAST SPEECH SEPARATION MODEL BASED ON TRANSFORMER，网络结构，ICASSP2021，2022/1/30
+
+	- 动机：为了通过减少模型大小和推理时间，同时保持高分离质量，使这些模型更加实用，我们提出了一种新的基于转换器的语音分离方法，称为TransMask。
+
+	- 方法：其中Transformer使用**Sandwich-Norm Transformer Layer**，经验发现，这种结构显著提高了收敛速度。
+
+		![image-20220130195138926](picture/image-20220130195138926.png)
+
+- Ultra Fast Speech Separation Model with Teacher Student Learning，Interspeech2021，网络结构，2022/1/30
+
+	- 动机：Transformer利用自注意机制具有较强的长依赖建模能力，已成功地应用于语音分离。然而，由于深度编码器层，Transformer往往有沉重的运行时成本，这阻碍了它在边缘设备上的部署。由于计算效率高，首选具有较少编码层的小型Transformer模型，但它容易导致性能下降。
+	- 方法：使用师生学习来解决动机中存在的问题。1）引入了分层的T-S学习机制，训练学生不仅要重现最终的预测，还要重现教师模型的中间输出。2）由于学生模型被训练来恢复教师模型的预测，因此T-S学习的表现将被限制在教师的能力上。为了避免这一限制，我们引入了客观转移机制，同时用教师的预测数据集和训练数据集来训练学生，公式1， 。3）在本文中，我们的目标是利用T-S学习中的大规模无标记混合数据。通过这种方式，学生模型可以通过模拟教师的行为来接近教师模型，不仅可以针对有限的注释数据，还可以针对大规模的未标记数据。<img src="picture/image-20220130200500057.png" alt="image-20220130200500057" style="zoom: 80%;" />
+
+	$$
+	L = \lambda(t)L_{PIT} + (1-\lambda(t))L_{LTS} \tag{1}
+	$$
+
+	
 
 
 
@@ -164,9 +220,9 @@
 		Vxm 做输入，预测Vym ；embedding layer为 sinusoidal positional encoding（正弦位置编码），Boosted classifer: y 。
 		
 		![image-20220118153002707](picture/image-20220118153002707.png)
-- 题目
-	- 动机
-	- 方法
+-  Three-class Overlapped Speech Detection using a Convolutional Recurrent Neural Network，Interspeech2021，三分类label，2022/1/30
+	- 动机：在没有OSD（Overlapped Speech Detection）系统的情况下，说话人日志系统的性能会与数据集中现有的重叠部分成比例地下降，因为该模型最终忽略了重叠语音区域中的第二个说话者。
+		- 方法：使用CRNN网络来实现三分类VAD。**记录：网络输出是单个标签**<img src="picture/image-20220130193235653.png" alt="image-20220130193235653" style="zoom: 67%;" />
 
 
 # CV
