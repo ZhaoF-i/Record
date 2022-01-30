@@ -96,6 +96,28 @@
 	- 方法：以CRN为基础，将卷积和反卷积换为门控卷积和门控反卷积，将LSTM换为Group LSTM，一个decoder换为两个decoder，一个预测实部一个预测虚部。
 
 		<img src="picture/image-20220128172655638.png" alt="image-20220128172655638" style="zoom: 67%;"/> <img src="picture/image-20220128173041481.png" alt="image-20220128173041481" style="zoom: 67%;" />
+	
+- Masked multi-head self-attention for causal speech enhancement ，Speech Communication2020，网络结构，2022/1/29
+
+	- 动机：（本位为DeepXi的后续系列）rnn和tcn在建模长期依赖关系时都表现出缺陷。通过使用序列相似性，MHA（多头自注意力）具有更有效地建模长期依赖关系的能力。此外，可以使用掩蔽来确保MHA机制仍然是因果关系——这是实时处理的关键属性。基于这些观点，我们研究了一个深度神经网络(DNN)，它利用mask的MHA进行因果语音增强。
+	- 方法：用多头自注意块来代替TCN中瓶颈残差块。<img src="picture/image-20220129165752256.png" alt="image-20220129165752256" style="zoom:67%;" />
+
+-  MetricGAN: Generative Adversarial Networks based Black-box Metric Scores Optimization for Speech Enhancement，网络结构+loss，ICML2019，2022/1/29
+
+	- 动机：生成对抗性网络(GAN)中的对抗性损失并不是用来直接优化目标任务的评估度量的，因此，可能并不总是指导GAN中的生成器生成具有改进的度量分数的数据。L1，L2 loss不能反应人类听觉感知。为了克服这个问题，我们提出了一种新的MetricGAN方法，目的是针对一个或多个评估指标来优化生成器。
+	- 方法：![image-20220129172128942](https://cdn.jsdelivr.net/gh/GithubFeiF-i/Record/picture/image-20220129172128942.png)
+
+-  MetricGAN+: An Improved Version of MetricGAN for Speech Enhancement，Interspeech2021，loss，2022/1/29
+
+	- 动机：提出一些改进来提高MetricGAN的性能
+	- 方法：
+		- 对于鉴别器：1）**在鉴别器的训练中包含带噪语音**：除了增强语音和干净语音外，噪声语音还用于最小化鉴别器和目标目标指标之间的距离。2）**从重放缓冲区中增加样本大小**：从前一个epoch生成的语音被重复用于训练D，这可以防止D的灾难性遗忘。
+		- 对于生成器：1）**掩码预测的可学习的Sigmoid函数**：传统的Sigmoid算法对于掩模估计不是最优的，因为它对所有频带都是相同的，并且最大值为1。每个频带可学习的Sigmoid函数更加灵活，提高了SE的性能。
+
+- NEURAL KALMAN FILTERING FOR SPEECH ENHANCEMENT，ICASSP2021，传统方法+神经网络，2022/1/29
+
+	- 动机：将专家知识驱动和改善过拟合问题集成到基于统计信号处理的网络设计仍然是一个悬而未决的问题。虽然架构设计有效建模不同的语音和噪声的时频依赖性，总是缺乏一个明确的标准模型设计，这使得很难解释和优化中间表示，也使性能高度依赖训练数据的多样性。
+	- 方法：该方法首先从语音演变模型中得到预测，然后通过线性加权对短期瞬时观测进行积分，通过比较语音预测残差与环境噪声水平来计算权值。设计了一个端到端网络，将KF中的语音线性预测模型转换为非线性模型，并压缩所有其他传统的线性滤波操作。![image-20220130171124607](picture/image-20220130171124607.png)
 
 
 ## Speech Separation
