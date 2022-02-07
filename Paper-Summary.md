@@ -196,8 +196,32 @@
 	$$
 
 	
+	
+##  Speaker Extraction
 
-
+- SpEx+: A Complete Time Domain Speaker Extraction Network，Interspeech2020，网络结构，2022/2/5
+	- 动机：SpEx是时域上的说话人抽取方法，它避免了频域上的相位预测。但SpEx并不完全是时域方法， 它用频域说话人embedding作为参考。同时频域输入窗口的大小和时域分析窗口的大小不同，这种不匹配会对系统的性能产生不利的影响。
+	
+	- 方法：提出完全是时域的说话人抽取：SpEx+，本文在两个语音编码器之间共享相同的网络结构及其权重。这样，混合语音输入和参考语音输入表示为统一的潜在特征空间。Speech Encoder是1D-conv + Relu，Speech Decoder是1D-deconv，采用多任务学习进行训练，公式（1）。
+	
+		<img src="picture/image-20220207171007983.png" alt="image-20220207171007983" style="zoom: 80%;" /><img src="picture/image-20220207171128377.png" alt="image-20220207171128377" style="zoom: 50%;" />
+		$$
+		L = L_{SI-SDR} + \lambda L_{CE} \tag{1}
+		$$
+	
+		$$
+		L_{SI-SDR} = −[(1 − α − β)ρ(s1, s) + αρ(s2, s) + βρ(s3, s)] \tag{2}
+		$$
+	
+		$$
+		ρ(\hat s, s) = 20log_{10}\frac{||(\hat s^Ts/s^T s) · s||}{||(\hat s^T s/s^T s) · s − \hat s||} \tag{3}
+		$$
+	
+		$$
+		L_{CE} = −\sum_{i=1}^{N_s} I_ilog(σ(W · v)i) \tag4
+		$$
+	
+		
 
 ## VAD
 
