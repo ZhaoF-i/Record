@@ -188,15 +188,30 @@
 
 - Ultra Fast Speech Separation Model with Teacher Student Learning，Interspeech2021，网络结构，2022/1/30
 
-	- 动机：Transformer利用自注意机制具有较强的长依赖建模能力，已成功地应用于语音分离。然而，由于深度编码器层，Transformer往往有沉重的运行时成本，这阻碍了它在边缘设备上的部署。由于计算效率高，首选具有较少编码层的小型Transformer模型，但它容易导致性能下降。
-	- 方法：使用师生学习来解决动机中存在的问题。1）引入了分层的T-S学习机制，训练学生不仅要重现最终的预测，还要重现教师模型的中间输出。2）由于学生模型被训练来恢复教师模型的预测，因此T-S学习的表现将被限制在教师的能力上。为了避免这一限制，我们引入了客观转移机制，同时用教师的预测数据集和训练数据集来训练学生，公式1 。3）在本文中，我们的目标是利用T-S学习中的大规模无标记混合数据。通过这种方式，学生模型可以通过模拟教师的行为来接近教师模型，不仅可以针对有限的注释数据，还可以针对大规模的未标记数据。<img src="picture/image-20220130200500057.png" alt="image-20220130200500057" style="zoom: 80%;" />
+  - 动机：Transformer利用自注意机制具有较强的长依赖建模能力，已成功地应用于语音分离。然而，由于深度编码器层，Transformer往往有沉重的运行时成本，这阻碍了它在边缘设备上的部署。由于计算效率高，首选具有较少编码层的小型Transformer模型，但它容易导致性能下降。
+  - 方法：使用师生学习来解决动机中存在的问题。1）引入了分层的T-S学习机制，训练学生不仅要重现最终的预测，还要重现教师模型的中间输出。2）由于学生模型被训练来恢复教师模型的预测，因此T-S学习的表现将被限制在教师的能力上。为了避免这一限制，我们引入了客观转移机制，同时用教师的预测数据集和训练数据集来训练学生，公式1 。3）在本文中，我们的目标是利用T-S学习中的大规模无标记混合数据。通过这种方式，学生模型可以通过模拟教师的行为来接近教师模型，不仅可以针对有限的注释数据，还可以针对大规模的未标记数据。<img src="picture/image-20220130200500057.png" alt="image-20220130200500057" style="zoom: 80%;" />
 
-	$$
-	L = \lambda(t)L_{PIT} + (1-\lambda(t))L_{LTS} \tag{1}
-	$$
+  $$
+  L = \lambda(t)L_{PIT} + (1-\lambda(t))L_{LTS} \tag{1}
+  $$
 
+-  TIME-DOMAIN LOSS MODULATION BASED ON OVERLAP RATIO FOR MONAURAL CONVERSATIONAL SPEAKER SEPARATION，ICASSP2021，loss，2022/2/14
+
+	- 动机：在100%overlap的语音分离取得了较好的效果，但是这样的模型如果直接用的说话人日常对话的语音分离效果就会下降。
+	- 方法：使用基于overlap率的时域调制损失，让网络更着重overlap区域，对非overlap区域减少注意。本文还是用Feature-wise Linear Modulation（FiLM）将语音经过VAD的向量做仿射，送入网络中。此外，在长语音拼接中用d-vector得到预测语音的embedding，并通过计算余弦相似度匹配语音。<img src="picture/image-20220220205817798.png" alt="image-20220220205817798" style="zoom: 67%;" />
+
+- Continuous Speech Separation with Conformer，arXiv，网络结构，2022/2/21
+
+	- 动机：连续语音分离最近被提出用于处理自然对话中的重叠语音。虽然它可以显著提高多通道对话转录的语音识别性能，但其在单通道记录场景中的有效性尚未得到证明。
+
+	- 方法：本文研究了使用conformer结构代替RNN的分离模型。分离模型可以有效地捕获局部和全局上下文信息，这有助于语音分离。
+
+		![image-20220224195911946](picture/image-20220224195911946.png)
 	
-	
+-  A CONFORMER-BASED ASR FRONTEND FOR JOINT ACOUSTIC ECHO CANCELLATION, SPEECH ENHANCEMENT AND SPEECH SEPARATION，ASRU，网络结构&多任务结合，2022/2/28
+
+	- 动机：实现用单一模型同时完成消回音，语音增强，以及语音分离这三类不同的降噪任务，从而极大地简化了降噪模型开发和部署的成本。
+	- 利用近年来在语音领域十分流行的**conformer网络结构**，以及在计算机视觉领域受到欢迎的**FiLM调制器**，除了采用经典的L1和L2损失函数来描述增强后的时频谱与期望时频谱之间的差距，还额外引入了**基于ASR的损失函数**。
 ##  Speaker Extraction
 
 - SpEx+: A Complete Time Domain Speaker Extraction Network，Interspeech2020，网络结构，2022/2/5
@@ -258,9 +273,24 @@
 	- 动机
 	- 方法
 # NLP
-- 题目
-	- 动机：
-	- 方法：
+- Attention Is All You Need，2017NIPS，网络结构，2022/2/9
+	
+	- Transformer中抛弃了传统的CNN和RNN，整个网络结构完全是由Attention机制组成。更准确地讲，Transformer由且仅由self-Attenion和Feed Forward Neural Network组成。
+	
+		<img src="picture/image-20220209151926669.png" alt="image-20220209151926669" style="zoom:67%;" /><img src="picture/image-20220209152251523.png" alt="image-20220209152251523" style="zoom:67%;" />
 - 题目
 	- 动机
 	- 方法
+
+# 数据集
+
+- Voice Bank：纯净语音数据集
+	- **（已知，后续根据需求补充）**
+	- 这个CSTR VCTK语料库包含了110个英语母语者的各种口音的语音数据。每个人朗读大约400个句子 。采样率为48kHz。
+	- 英格兰口音：28名说话者——14名男性和14名女性，共11572个语音文件
+	- 苏格兰和美国口语：56名说话人——男性28人，女性28人。
+	- 2个英格兰口音说话人（一男一女）用于测试，共824个语音文件。
+- Demand：噪音数据集
+	- 目前的数据库分为6类，共18个场景，其中4个是室内的，2个是露天的。室内环境分为家庭、办公室、公共和交通；露天环境是街道和自然。在每个类别中都有3个环境录音，采样率为16kHz。
+	- 麦克风阵列由**16个麦克风**组成，分4行交错排列，从每个麦克风到它相邻的地方有5厘米的距离。该阵列在一个在所有记录中都与地面平行的平面上。
+
