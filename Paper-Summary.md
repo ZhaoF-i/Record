@@ -219,24 +219,33 @@
 	
 	- 方法：提出完全是时域的说话人抽取：SpEx+，本文在两个语音编码器之间共享相同的网络结构及其权重。这样，混合语音输入和参考语音输入表示为统一的潜在特征空间。Speech Encoder是1D-conv + Relu，Speech Decoder是1D-deconv，采用多任务学习进行训练，公式（1）。
 	
+		
+		
 		<img src="picture/image-20220207171007983.png" alt="image-20220207171007983" style="zoom: 80%;" /><img src="picture/image-20220207171128377.png" alt="image-20220207171128377" style="zoom: 50%;" />
 		$$
 		L = L_{SI-SDR} + \lambda L_{CE} \tag{1}
 		$$
-	
+		
 		$$
 		L_{SI-SDR} = −[(1 − α − β)ρ(s1, s) + αρ(s2, s) + βρ(s3, s)] \tag{2}
 		$$
-	
+		
 		$$
 		ρ(\hat s, s) = 20log_{10}\frac{||(\hat s^Ts/s^T s) · s||}{||(\hat s^T s/s^T s) · s − \hat s||} \tag{3}
 		$$
-	
+		
 		$$
 		L_{CE} = −\sum_{i=1}^{N_s} I_ilog(σ(W · v)i) \tag4
 		$$
-	
 		
+
+- SPEAKER ACTIVITY DRIVEN NEURAL SPEECH EXTRACTION，ICASSP 2021，，
+
+	- 动机：虽然目标语音提取可以实现高水平的性能，但并不总是能够访问注册的话语或视频。
+
+	- 方法：本文研究了另一个线索的使用，它包括一个说话者的言语活动（二分类VAD）。其中VAD信息来自说话人日志。本文最终使用（d）ADEnet-mix实现最佳效果。
+
+		![image-20220320083125275](picture/image-20220320083125275.png)
 
 ## VAD
 
@@ -264,11 +273,13 @@
 		- 方法：使用CRNN网络来实现三分类VAD。**记录：网络输出是单个标签**<img src="picture/image-20220130193235653.png" alt="image-20220130193235653" style="zoom: 67%;" />
 
 
-# CV
-- 题目
-	- 动机：
+# ASR
+- END-TO-END MULTI-CHANNEL TRANSFORMER FOR SPEECH RECOGNITION，ICASSP2021，网络结构，2022/3/14
+	- 动机：为提升ASR在噪音环境下的鲁棒性，使用多麦克风就是一种解决方法，通常多麦克风会使用beamformer作为前置处理，并于ASR级联。
 	
-	- 方法：
+	- 方法：本文绕过beamformer，使用端到端多通道transformer来实现ASR。
+	
+		![image-20220320081034401](picture/image-20220320081034401.png)
 - 题目
 	- 动机
 	- 方法
