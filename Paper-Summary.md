@@ -270,10 +270,19 @@
 		![image-20220118153002707](picture/image-20220118153002707.png)
 -  Three-class Overlapped Speech Detection using a Convolutional Recurrent Neural Network，Interspeech2021，三分类label，2022/1/30
 	- 动机：在没有OSD（Overlapped Speech Detection）系统的情况下，说话人日志系统的性能会与数据集中现有的重叠部分成比例地下降，因为该模型最终忽略了重叠语音区域中的第二个说话者。
-		- 方法：使用CRNN网络来实现三分类VAD。**记录：网络输出是单个标签**<img src="picture/image-20220130193235653.png" alt="image-20220130193235653" style="zoom: 67%;" />
+	- 方法：使用CRNN网络来实现三分类VAD。**记录：网络输出是单个标签**<img src="picture/image-20220130193235653.png" alt="image-20220130193235653" style="zoom: 67%;" />
 
+# Sound Detection/Extraction
+
+- ENVIRONMENTAL SOUND EXTRACTION USING ONOMATOPOEIC WORDS，ICASSP2022，特征信息，2022/3/22
+
+	- 动机：准备所需声音的一种方法是从环境声音数据库中获得它。然而，目前可用的数据库的数量是非常有限的，所以你想要的声音并不总是在数据库中。另一方面，互联网上有大量未标记的环境声音，但扩展数据库并不容易，因为它需要丰富的领域知识和分类法。
+	- 方法：提出了一种使用拟声词的环境声音提取方法
+
+	![image-20220327212912109](picture/image-20220327212912109.png)
 
 # ASR
+
 - END-TO-END MULTI-CHANNEL TRANSFORMER FOR SPEECH RECOGNITION，ICASSP2021，网络结构，2022/3/14
 	- 动机：为提升ASR在噪音环境下的鲁棒性，使用多麦克风就是一种解决方法，通常多麦克风会使用beamformer作为前置处理，并于ASR级联。
 	
