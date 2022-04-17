@@ -154,7 +154,40 @@
 
 		![image-20220130192230780](picture/image-20220130192230780.png)
 
+- Perceptual Contrast Stretching on Target Feature for Speech Enhancement，，后处理方法，2022/4/5
 
+	- 方法：本文提出了一种新的后处理方法PCS（perceptual contrast stretch）来进一步提升语音增强的性能，与基于后处理的实现相比，将PCS纳入训练阶段既保持了性能又减少了在线计算。
+		提出的PCS有三个有点：首先，它与不同的SE系统(传统的或基于DL的)高度兼容。其次，在SE模型中不需要额外的参数。第三，它不影响因果SE模型的因果关系。
+
+		![image-20220405172522691](picture/image-20220405172522691.png)
+
+		所提出的方法可由上图流程所示，其中C.S.可由公式(1)表示，此外，本文的SE模型的训练特征被移到log(1+p)域(log1p特征)，因此，可以推导出公式(1)得到公式(2)：
+		$$
+		Y_{t,f} = A(M_{t,f})^ \gamma  \tag 1
+		$$
+		其中M表示幅度谱特征，A为缩放函数，γ值，Y为修正信号，此部分的灵感来源 **Gamma correction**
+		$$
+		log1p(Y_{t,f} ) = log(1 + Y_{t,f} ) = γ ∗ log(1 + M_{t,f} ) \tag 2
+		$$
+		这里缩放函数A为: 
+		$$
+		(1 + 1/M_{t,f} )^γ− (1/M_{t,f} )^γ \tag 3
+		$$
+		上文最佳的γ取值从实验中验证，γ=1.4为最优值。
+
+		为了进一步提高对比度拉伸，以获得更好的感知性能，我们旨在基于关键波段的重要性设计我们的特征增强。根据公式(4)以及表1中的BIF值得到关键频带重要性选取对应的γ值。**注：人们可以比其他频带更好地感知到400到4400赫兹的频带的差异**
+
+		![image-20220405190248047](picture/image-20220405190248047.png)
+		$$
+		γ_{P CS}[k] = \frac {(γ − P CS_{min})}{ (BIF_{Max} − BIF_{min})} * BIF[k] + P CS_{min} \tag 4
+		$$
+		式中，k为频带指数。
+
+		最终整个网络由公式(5)表示为：
+		$$
+		L = D(SE(Log1p(X_{t,f })), Log1p(Y_{t,f} )) \tag 5
+		$$
+		D(·)为目标函数，这里的目标函数是泛指，并不是特定某一个目标函数，SE(·)为语音增强模型。
 
 
 ## Speech Separation
@@ -303,13 +336,26 @@
 	- 方法
 # NLP
 - Attention Is All You Need，2017NIPS，网络结构，2022/2/9
-	
-	- Transformer中抛弃了传统的CNN和RNN，整个网络结构完全是由Attention机制组成。更准确地讲，Transformer由且仅由self-Attenion和Feed Forward Neural Network组成。
-	
-		<img src="picture/image-20220209151926669.png" alt="image-20220209151926669" style="zoom:67%;" /><img src="picture/image-20220209152251523.png" alt="image-20220209152251523" style="zoom:67%;" />
+
+  - Transformer中抛弃了传统的CNN和RNN，整个网络结构完全是由Attention机制组成。更准确地讲，Transformer由且仅由self-Attenion和Feed Forward Neural Network组成。
+
+  	<img src="picture/image-20220209151926669.png" alt="image-20220209151926669" style="zoom:67%;" /><img src="picture/image-20220209152251523.png" alt="image-20220209152251523" style="zoom:67%;" />
+
 - 题目
-	- 动机
-	- 方法
+  - 动机
+  - 方法
+
+# CV
+
+- Scaling Up Your Kernels to 31x31: Revisiting Large Kernel Design in CNNs，CVPR，网络结构，2022/4/17
+	- 动机：受vision transformers (ViTs)最新进展的启发，在本文证明了使用一些大的卷积内核而不是堆栈的小内核可能是一个更强大的范例，我们提出了五种指导方针，根据这些指导方针提出了RepLKNet，这是一个纯CNN架构，其内核大小高达31×31。
+		五种指导方针：
+		- 大的深度（depth-wise）卷积在实践中是有效的。
+		- 标识快捷方式（[identity shortcut](https://blog.csdn.net/pierce_kk/article/details/96480328/)）至关重要，特别是对于大内核的网络。
+		- 用小内核重新参数化有助于弥补优化问题。
+		- 大卷积比ImageNet分类更能促进下游任务。
+		- 大内核（例如，13×13）即使在小的特征映射（例如，7×7）上也很有用。
+	- 方法：<img src="picture/image-20220417161737680.png" alt="image-20220417161737680" style="zoom:50%;" />
 
 # 数据集
 
